@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class TimerCircle : MonoBehaviour
 {
     [SerializeField] private float maximumTime;
+    [SerializeField] private int id;
     private float actualTimer;
     private Image fillCircle;
 
@@ -14,6 +15,7 @@ public class TimerCircle : MonoBehaviour
     {
         actualTimer = maximumTime;
         fillCircle = transform.GetChild(0).GetComponent<Image>();
+        GameEvents.current.onTimerEndTrigger += OnTimerEnd;
     }
 
     // Update is called once per frame
@@ -23,6 +25,24 @@ public class TimerCircle : MonoBehaviour
         fillCircle.fillAmount = actualTimer / maximumTime;
 
 
-        if (actualTimer <= 0 && Input.GetKeyDown(KeyCode.P)) actualTimer = maximumTime;
+        if (actualTimer <= 0)
+        {
+            GameEvents.current.TimerEnd(id);
+            actualTimer = maximumTime; // the timer just loops so we can test it
+        }
+    }
+
+    private void OnTimerEnd(int id)
+    {
+        if (id == this.id) Debug.Log("the times endsssss"); // trigger something when timer ends
+    }
+
+
+
+
+
+    private void OnDestroy()
+    {
+        GameEvents.current.onTimerEndTrigger -= OnTimerEnd;
     }
 }
