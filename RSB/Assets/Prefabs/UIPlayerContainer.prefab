@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maximumTime: 5
-  id: 1
-  playerCanPickAction: 0
+  id: 0
+  timerMustStop: 0
   playerAction: {fileID: 7341430769260840371}
 --- !u!1 &1316833794507164405
 GameObject:
@@ -496,6 +496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7341430769260840368}
   - component: {fileID: 7341430769260840371}
+  - component: {fileID: 938744591483862170}
   m_Layer: 0
   m_Name: PlayerActions
   m_TagString: Untagged
@@ -538,6 +539,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: {fileID: 7341430768471021411}
+  id: 0
+--- !u!114 &938744591483862170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7341430769260840369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7ee1ca1c364d594bbfef718fde19c3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionList: 
 --- !u!1 &7341430769363468055
 GameObject:
   m_ObjectHideFlags: 0

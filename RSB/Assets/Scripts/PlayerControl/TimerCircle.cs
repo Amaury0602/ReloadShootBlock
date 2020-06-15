@@ -24,22 +24,25 @@ public class TimerCircle : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (actualTimer >= 0 && !timerMustStop) actualTimer -= Time.deltaTime;
+        if (actualTimer >= 0 && !timerMustStop) actualTimer -= Time.deltaTime; //timerMustStop is changed to true in PlayerAction.SendActionOnClick()
         fillCircle.fillAmount = actualTimer / maximumTime;
 
 
-        if (actualTimer <= 0)
-        {
-            GameEvents.current.TimerEnd(id);
-            actualTimer = maximumTime; // the timer just loops so we can test it
-        }
+        if (actualTimer <= 0) GameEvents.current.TimerEnd(id);
     }
 
     private void OnTimerEnd(int id)
     {
-        if (id == this.id) Debug.Log("the times endsssss"); // trigger something when timer ends
+        //if (id == this.id) Debug.Log("the times endsssss"); // trigger something when timer ends
         playerAction.SendActionOnClick(1, SelectedAction.Block, playerAction.id); // the default sent action is Block
-        //player cannot pickAction anymore
+        RefreshTimer(); // for the moment to test the combos
+    }
+
+
+    public void RefreshTimer()
+    {
+        actualTimer = maximumTime;
+        timerMustStop = false;
     }
 
     
