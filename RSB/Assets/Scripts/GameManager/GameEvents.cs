@@ -12,14 +12,23 @@ public class GameEvents : MonoBehaviour
         current = this;
     }
 
-    public event Action<int> onTimerEndTrigger;
+    public event Action<int> OnTimerEndTrigger;
+    public event Action OnActionsReceived;
 
 
     public void TimerEnd(int id)
     {
-        if (onTimerEndTrigger != null)
+        if (OnTimerEndTrigger != null)
         {
-            onTimerEndTrigger(id);
+            OnTimerEndTrigger(id);
+        }
+    }
+
+    public void RefreshTimer()
+    {
+        if (OnActionsReceived != null)
+        {
+            OnActionsReceived();
         }
     }
 }

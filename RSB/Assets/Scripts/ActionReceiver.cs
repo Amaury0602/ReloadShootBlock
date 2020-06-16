@@ -10,6 +10,8 @@ public class ActionReceiver : MonoBehaviour
     [SerializeField] Image rightSquare;
     private Color initialColor;
     private int squareTriggered = 0;
+    SelectedAction leftPlayerAction;
+    SelectedAction rightPlayerAction;
 
     private void Awake()
     {
@@ -18,16 +20,27 @@ public class ActionReceiver : MonoBehaviour
 
     void Start()
     {
+        leftPlayerAction = SelectedAction.Null;
+        rightPlayerAction = SelectedAction.Null;
         initialColor = leftSquare.color;
     }
-    
-    public void ReceiveAction(int imageId) // id == 1 is Left player action
+
+    public void ReceiveAction(int imageId, SelectedAction action)
     {
-        if (imageId == 0) leftSquare.color = Color.green;
-        if (imageId == 1) rightSquare.color = Color.green;
+        if (imageId == 0) // left player
+        {
+            leftSquare.color = Color.green;
+            leftPlayerAction = action;
+        }
+        else if (imageId == 1) // right player
+        {
+            rightSquare.color = Color.green;
+            rightPlayerAction = action;
+        }
+
         if (squareTriggered == 1) // and just received the second action
         {
-            // TriggerActions();
+            TriggerActions();
         }
         else
         {
@@ -41,11 +54,12 @@ public class ActionReceiver : MonoBehaviour
         rightSquare.color = initialColor;
     }
 
-    //private void TriggerActions()
-    //{
-    //    send data to players / score;
-    //    refresh timer;
-    //    set square triggers to false;
-    //}
-
+    private void TriggerActions()
+    {
+        squareTriggered = 0; // reset the square so turn goes back to beginning
+        Debug.Log(leftPlayerAction + "  " + rightPlayerAction);
+        //send data to players / score;
+        GameEvents.current.RefreshTimer(); // sends event to both timers and RefreshTimers()
+        RefreshImages();
+    }
 }

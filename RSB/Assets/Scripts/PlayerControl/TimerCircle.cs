@@ -18,7 +18,8 @@ public class TimerCircle : MonoBehaviour
         timerMustStop = false;
         actualTimer = maximumTime;
         fillCircle = transform.GetChild(0).GetComponent<Image>();
-        GameEvents.current.onTimerEndTrigger += OnTimerEnd;
+        GameEvents.current.OnTimerEndTrigger += OnTimerEnd;
+        GameEvents.current.OnActionsReceived += RefreshTimer; // when both players sent action
     }
 
     // Update is called once per frame
@@ -33,7 +34,6 @@ public class TimerCircle : MonoBehaviour
 
     private void OnTimerEnd(int id)
     {
-        //if (id == this.id) Debug.Log("the times endsssss"); // trigger something when timer ends
         playerAction.SendActionOnClick(1, SelectedAction.Block, playerAction.id); // the default sent action is Block
         RefreshTimer(); // for the moment to test the combos
     }
@@ -45,9 +45,12 @@ public class TimerCircle : MonoBehaviour
         timerMustStop = false;
     }
 
+
+
     
     private void OnDestroy()
     {
-        GameEvents.current.onTimerEndTrigger -= OnTimerEnd;
+        GameEvents.current.OnTimerEndTrigger -= OnTimerEnd;
+        GameEvents.current.OnActionsReceived -= RefreshTimer;
     }
 }

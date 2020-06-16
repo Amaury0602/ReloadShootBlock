@@ -30,10 +30,4 @@ public class ActionCombo : MonoBehaviour
         actionList[0] = action;
         Debug.Log(actionList[0] + " " + actionList[1] + " " + actionList[2]);
     }
-
-
-    // add an action
-    // maximum is 3
-    // after 3
-
 }

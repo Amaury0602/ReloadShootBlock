@@ -29,7 +29,7 @@ public class PlayerActions : MonoBehaviour
     {
         timer.timerMustStop = true; // so the TimerCircle stops running
         actionCombo.AddAction(action);
-        ActionReceiver.current.ReceiveAction(id);  // send action to ActionReceiver.current with id so you trigger right image
+        ActionReceiver.current.ReceiveAction(id, action);  // send action to ActionReceiver.current with id so you trigger right image
     }
 }
 
