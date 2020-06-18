@@ -9,14 +9,14 @@ public class PlayerActions : MonoBehaviour
     public int id; // id lets you know which player sent the action
     private Button[] actionButtons;
     private ActionCombo actionCombo;
-    public SelectedAction ClickedAction { get; set; }
+    public bool ActionAlreadySelected { get; set; }
 
 
     void Start()
     {
         // lets get the 3 action buttons in an array and add listener so we can set callback
         actionButtons = GetComponentsInChildren<Button>();
-        actionButtons[0].onClick.AddListener(delegate { SendActionOnClick(0, SelectedAction.Reload, id); }); //buttonReload
+        actionButtons[0].onClick.AddListener(delegate { SendActionOnClick(0, SelectedAction.Reload, id); }); //button Reload
         actionButtons[1].onClick.AddListener(delegate { SendActionOnClick(1, SelectedAction.Block, id); }); //button Block
         actionButtons[2].onClick.AddListener(delegate { SendActionOnClick(2, SelectedAction.Shoot, id); }); //button Shoot
 
@@ -27,6 +27,8 @@ public class PlayerActions : MonoBehaviour
     //SelectedAction to send when player clicks on UI button
     public void SendActionOnClick(int index, SelectedAction action, int id)
     {
+        if (ActionAlreadySelected) return; // check if already sent action
+        ActionAlreadySelected = true; // the bool is set back to false in ActionReceiver.TriggerActions()
         timer.timerMustStop = true; // so the TimerCircle stops running
         actionCombo.AddAction(action);
         ActionReceiver.current.ReceiveAction(id, action);  // send action to ActionReceiver.current with id so you trigger right image

@@ -18,7 +18,6 @@ public class TimerCircle : MonoBehaviour
         timerMustStop = false;
         actualTimer = maximumTime;
         fillCircle = transform.GetChild(0).GetComponent<Image>();
-        GameEvents.current.OnTimerEndTrigger += OnTimerEnd;
         GameEvents.current.OnActionsReceived += RefreshTimer; // when both players sent action
     }
 
@@ -29,17 +28,16 @@ public class TimerCircle : MonoBehaviour
         fillCircle.fillAmount = actualTimer / maximumTime;
 
 
-        if (actualTimer <= 0) GameEvents.current.TimerEnd(id);
+        if (actualTimer <= 0) SendDefaultAction(id);
     }
 
-    private void OnTimerEnd(int id)
+    private void SendDefaultAction(int id)
     {
         playerAction.SendActionOnClick(1, SelectedAction.Block, playerAction.id); // the default sent action is Block
-        RefreshTimer(); // for the moment to test the combos
     }
 
 
-    public void RefreshTimer()
+    public void RefreshTimer() // event triggered in ActionReceiver
     {
         actualTimer = maximumTime;
         timerMustStop = false;
@@ -50,7 +48,6 @@ public class TimerCircle : MonoBehaviour
     
     private void OnDestroy()
     {
-        GameEvents.current.OnTimerEndTrigger -= OnTimerEnd;
         GameEvents.current.OnActionsReceived -= RefreshTimer;
     }
 }

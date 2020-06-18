@@ -13,22 +13,23 @@ public class GameEvents : MonoBehaviour
     }
 
     public event Action<int> OnTimerEndTrigger;
+    public event Action<int> OnPointUpdate;
     public event Action OnActionsReceived;
 
-
-    public void TimerEnd(int id)
-    {
-        if (OnTimerEndTrigger != null)
-        {
-            OnTimerEndTrigger(id);
-        }
-    }
 
     public void RefreshTimer()
     {
         if (OnActionsReceived != null)
         {
             OnActionsReceived();
+        }
+    }
+
+    public void UpdatePoints(int id)
+    {
+        if (OnPointUpdate != null)
+        {
+            OnPointUpdate(id);
         }
     }
 }
