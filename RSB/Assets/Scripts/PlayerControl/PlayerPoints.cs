@@ -19,11 +19,10 @@ public class PlayerPoints : MonoBehaviour
         elapsedTime = pointIncrementInterval;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         PointsGoingUp();
-        Debug.Log(Points);
     }
 
 
@@ -33,6 +32,7 @@ public class PlayerPoints : MonoBehaviour
         if (pointIncrementInterval <= 0)
         {
             Points++;
+            GameEvents.current.UpdatePoints(id);
             pointIncrementInterval = elapsedTime;
         }
     }
