@@ -62,8 +62,8 @@ public class ActionReceiver : MonoBehaviour
     private void TriggerActions()
     {
         playerPlayed = 0; // reset the square so turn goes back to beginning
-        //StartCoroutine(RefreshTimerTimeout()); // sends event to both timers and RefreshTimers() (GameEvents)
-        GameEvents.current.RefreshTimer();
+        //StartCoroutine(RefreshTimerTimeout()); 
+        GameEvents.current.RefreshTimer(); // sends event to both timers and RefreshTimers() (GameEvents)
         RefreshImages();
         foreach (var player in players)
         {

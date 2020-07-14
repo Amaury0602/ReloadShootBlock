@@ -28,8 +28,7 @@ public class RoundsManager : MonoBehaviour
         actualRound++;
         if (actualRound == roundImages.Length)
         {
-            // stop game from refreshing
-            Debug.Log("ok");
+            GameManager.current.SetGameOver();
         }
     }
 }
