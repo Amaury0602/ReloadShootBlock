@@ -10,17 +10,28 @@ public class PlayerActions : MonoBehaviour
     private Button[] actionButtons;
     private ActionCombo actionCombo;
     public bool ActionAlreadySelected { get; set; }
+    private PlayerPoints playerPoints;
 
 
     void Start()
     {
+        GameEvents.current.OnBulletChange += RefreshButton;
+        playerPoints = GetComponent<PlayerPoints>();
+
         // lets get the 3 action buttons in an array and add listener so we can set callback
         actionButtons = GetComponentsInChildren<Button>();
         actionButtons[0].onClick.AddListener(delegate { SendActionOnClick(0, SelectedAction.Reload, id); }); //button Reload
         actionButtons[1].onClick.AddListener(delegate { SendActionOnClick(1, SelectedAction.Block, id); }); //button Block
         actionButtons[2].onClick.AddListener(delegate { SendActionOnClick(2, SelectedAction.Shoot, id); }); //button Shoot
 
+        actionButtons[2].interactable = false; // default : no  bullets so button deactivated
+
         actionCombo = GetComponent<ActionCombo>();
+    }
+
+    private void RefreshButton(int id) // event to check if need to refresh button after reload
+    {
+        if (this.id == id) actionButtons[2].interactable = playerPoints.Bullets > 0 ? true : false;
     }
 
 

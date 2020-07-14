@@ -14,10 +14,11 @@ public class GameEvents : MonoBehaviour
 
     public event Action<int> OnTimerEndTrigger;
     public event Action<int> OnPointUpdate;
+    public event Action<int> OnBulletChange;
     public event Action OnActionsReceived;
 
 
-    public void RefreshTimer()
+    public void RefreshTimer() // triggered in (Actioneceiver && TimerCircle) 
     {
         if (OnActionsReceived != null)
         {
@@ -25,11 +26,19 @@ public class GameEvents : MonoBehaviour
         }
     }
 
-    public void UpdatePoints(int id)
+    public void UpdatePoints(int id) // update points according to specific events (PlayerPoints && PointsDisplayer)
     {
         if (OnPointUpdate != null)
         {
             OnPointUpdate(id);
+        }
+    }
+
+    public void RefreshButton(int id)
+    {
+        if (OnBulletChange != null)
+        {
+            OnBulletChange(id);
         }
     }
 }

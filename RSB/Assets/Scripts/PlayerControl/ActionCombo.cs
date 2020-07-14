@@ -26,6 +26,5 @@ public class ActionCombo : MonoBehaviour
         actionList[2] = actionList[1];
         actionList[1] = actionList[0];
         actionList[0] = action;
-        Debug.Log(actionList[0] + " " + actionList[1] + " " + actionList[2]);
     }
 }
